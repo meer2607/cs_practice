@@ -1,50 +1,50 @@
 //An implementation of dynamic arrays using static arrays
 //21-12-21
 
-public class DynamicArray{
+public class DynamicArray<T>{
   public static void main(String[] args) {
-    DynamicArray array = new DynamicArray(5);
+    DynamicArray<String> array = new DynamicArray<>(5);
     System.out.println(array);
 
-    array.append(5);
-    array.append(23);
+    array.append("5");
+    array.append("23");
     System.out.println(array);
 
-    array.replace(1, 6);
+    array.replace(1, "6");
     System.out.println(array);
 
-    array.addAt(0, 52);
+    array.addAt(0, "52");
     System.out.println(array);
 
     array.remove(0);
     System.out.println(array);
   }
 
-  private int[] dynamicArray;
+  private T[] dynamicArray;
   private int capacity, size;
 
   //Capacity 2:
   public DynamicArray(){
-    this.dynamicArray = new int[2];
+    this.dynamicArray = (T[]) new Object[2];
     this.capacity = 2;
     this.size = 0;
   }
 
   //Specific initial capacity:
   public DynamicArray(int capacity){
-    this.dynamicArray = new int[capacity];
+    this.dynamicArray = (T[]) new Object[capacity];
     this.capacity = capacity;
     this.size = 0;
   }
 
-  public void append(int value){
+  public void append(T value){
     adjustCapacity();
 
     dynamicArray[size] = value;
     size++;
   }
 
-  public void addAt(int index, int value){
+  public void addAt(int index, T value){
     adjustCapacity();
 
     if(index<0 || index>size){
@@ -58,12 +58,12 @@ public class DynamicArray{
     size++;
   }
 
-  public int remove(int index){
+  public T remove(int index){
     if(index<0 || index>=size || size==0){
       throw new ArrayIndexOutOfBoundsException();
     }
 
-    int value = dynamicArray[index];
+    T value = dynamicArray[index];
     for(int i=index; i<size-1; i++)
       dynamicArray[i] = dynamicArray[i+1];
 
@@ -73,18 +73,18 @@ public class DynamicArray{
     return value;
   }
 
-  public int replace(int index, int value){
+  public T replace(int index, T value){
     if(index<0 || index>=size){
       throw new ArrayIndexOutOfBoundsException();
     }
 
-    int oldValue = dynamicArray[index];
+    T oldValue = dynamicArray[index];
     dynamicArray[index] = value;
 
     return oldValue;
   }
 
-  public int get(int index) throws ArrayIndexOutOfBoundsException{
+  public T get(int index) throws ArrayIndexOutOfBoundsException{
     if(index<0 || index>=size){
       throw new ArrayIndexOutOfBoundsException();
     }
@@ -101,7 +101,7 @@ public class DynamicArray{
     else if(size<=capacity/4)
       capacity/=2;
 
-    int[] tempArray = new int[capacity];
+    T[] tempArray = (T[]) new Object[capacity];
     for(int i=0; i<size; i++)
       tempArray[i] = dynamicArray[i];
     dynamicArray = tempArray;
