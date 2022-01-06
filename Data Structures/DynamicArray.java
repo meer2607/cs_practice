@@ -20,10 +20,10 @@ public class DynamicArray{
     System.out.println(array);
   }
 
-  int[] dynamicArray;
-  int capacity, size;
+  private int[] dynamicArray;
+  private int capacity, size;
 
-  //Size 2:
+  //Capacity 2:
   public DynamicArray(){
     this.dynamicArray = new int[2];
     this.capacity = 2;
@@ -114,7 +114,9 @@ public class DynamicArray{
     for(int i=0; i<size; i++)
       stringRepresentation += dynamicArray[i] + ", ";
 
-    //stringRepresentation.substring(0, stringRepresentation.length()-2);
+    if(!"[".equals(stringRepresentation))
+      stringRepresentation = stringRepresentation.substring(0,
+                               stringRepresentation.length()-2);
 
     return stringRepresentation+"]";
   }
